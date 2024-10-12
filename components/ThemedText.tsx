@@ -34,8 +34,8 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 17,
+    lineHeight: 34,
     fontFamily: "Poppins",
   },
   defaultSemiBold: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
-    lineHeight: 62,
+    lineHeight: 52,
     fontFamily: "Neuton",
   },
   subtitle: {

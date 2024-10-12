@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  View,
 } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { useRouter } from "expo-router";
@@ -21,23 +22,23 @@ export default function HomeScreen() {
     <ImageBackground
       source={require("../assets/images/welcome-bg.png")}
       style={styles.background}
-      resizeMode="cover" // Ensure it covers the whole screen
+      resizeMode="cover"
     >
       <ImageBackground
         source={require("../assets/images/welcome-1.png")}
         style={[
           styles.bottomLeftImage,
           { width: width * 1.3, height: height * 0.6 },
-        ]} // Dynamically set size based on screen
+        ]}
         resizeMode="contain"
       />
 
-      <ThemedView className="flex pt-20 justify-start items-start px-7 bg-transparent">
+      <View style={styles.contentContainer}>
         <ThemedView className="mb-5 relative bg-transparent">
           <ThemedText type="title" className="z-10">
             Best Deals,
           </ThemedText>
-          <ThemedText type="title" className="z-10 -mt-3">
+          <ThemedText type="title" className="z-10">
             Right Nearby!
           </ThemedText>
           <Image
@@ -47,11 +48,11 @@ export default function HomeScreen() {
             resizeMode="contain"
           ></Image>
         </ThemedView>
-        <ThemedText type="default" className="text-left leading-7">
+        <ThemedText type="default" className="text-left">
           Find amazing discounts near you easily with DiscountsLK. Search by
           city and discover unbeatable offers wherever you are.
         </ThemedText>
-      </ThemedView>
+      </View>
 
       {/* Button positioned to the right side */}
       <TouchableOpacity
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   bottomLeftImage: {
     position: "absolute",
     bottom: 0,
-    left: -145, // Move it off the screen slightly to match design
+    left: -145,
   },
   rightButtonContainer: {
     position: "absolute",
@@ -94,5 +95,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
+    marginTop: -390,
   },
 });
