@@ -24,7 +24,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="favorite"
         options={{
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
@@ -32,6 +32,6 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </Tabs>   
   );
 }
