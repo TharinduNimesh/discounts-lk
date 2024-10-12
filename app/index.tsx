@@ -60,6 +60,7 @@ export default function HomeScreen() {
           styles.rightButtonContainer,
           { bottom: height * 0.23, right: width * 0.1 },
         ]}
+        activeOpacity={0.6}
         onPress={() => router.push("/auth/sign-up")}
       >
         <LinearGradient
