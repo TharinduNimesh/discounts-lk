@@ -37,7 +37,7 @@ export default function HomeScreen() {
           <ThemedText type="title" className="z-10">
             Best Deals,
           </ThemedText>
-          <ThemedText type="title" className="z-10">
+          <ThemedText type="title" className="z-10 -mt-3">
             Right Nearby!
           </ThemedText>
           <Image
@@ -47,7 +47,7 @@ export default function HomeScreen() {
             resizeMode="contain"
           ></Image>
         </ThemedView>
-        <ThemedText type="default" className="text-left">
+        <ThemedText type="default" className="text-left leading-7">
           Find amazing discounts near you easily with DiscountsLK. Search by
           city and discover unbeatable offers wherever you are.
         </ThemedText>
