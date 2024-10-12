@@ -11,13 +11,13 @@ export default function HomeScreen() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemedView className="flex justify-center items-center h-full px-7 py-12 bg-[#FFF6EF]">
-        <ThemedView className="mb-5 relative bg-[#FFF6EF]">
+      <ThemedView className="h-full px-7 py-12 bg-[#FFF6EF]">
+        <ThemedView className="mt-10 mb-5 relative bg-[#FFF6EF]">
           <ThemedText type="title" className="text-center z-10">
             Welcome To DiscountsLK
           </ThemedText>
           <Image
-            className="absolute -bottom-2 -right-2"
+            className="absolute -bottom-2 right-4"
             source={require("@/assets/images/fancy-underline.png")}
             style={{ width: 200, height: 40, resizeMode: "contain" }}
           />
@@ -58,7 +58,7 @@ export default function HomeScreen() {
             gradientColors={["black", "black"]}
             onPress={() => router.push("/(app)/auth/sign-up")}
           >
-            Dont't Have An Account ?
+            Don't Have An Account ?
           </Button>
           <ThemedView className="pt-4">
             <Button

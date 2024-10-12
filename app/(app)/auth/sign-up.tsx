@@ -13,7 +13,7 @@ export default function SignUp() {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <ThemedView className="flex justify-center items-center h-full px-7 py-12 bg-[#FFF6EF]">
         <ThemedView className="mb-5 relative bg-[#FFF6EF]">
-          <ThemedText type="title" className="z-10 text-center">
+          <ThemedText type="title" className="mt-10 z-10 text-center">
             Create New Account
           </ThemedText>
           <Image
