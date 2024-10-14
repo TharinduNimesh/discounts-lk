@@ -37,15 +37,10 @@ export default function RootLayout() {
       <StatusBar style="dark" backgroundColor="#FFF6EF" />
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="(app)/auth/sign-up"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(app)/auth/sign-in"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="(app)/(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="auth/sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="auth/sign-up" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
