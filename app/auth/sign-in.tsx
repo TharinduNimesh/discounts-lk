@@ -11,8 +11,8 @@ export default function HomeScreen() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemedView className="h-full px-7 py-12 bg-[#FFF6EF]">
-        <ThemedView className="mt-10 mb-5 relative bg-[#FFF6EF]">
+      <ThemedView className="h-full px-7 py-12 bg-primary">
+        <ThemedView className="mt-10 mb-5 relative bg-primary">
           <ThemedText type="title" className="text-center z-10">
             Welcome To DiscountsLK
           </ThemedText>
@@ -29,7 +29,7 @@ export default function HomeScreen() {
         </ThemedText>
 
         {/* Card for inputs */}
-        <View className="w-full bg-white rounded-lg p-6 mt-6 shadow-lg">
+        <View className="w-full bg-secondary rounded-lg p-6 mt-6 shadow-lg">
           <ThemedView className="mb-5">
             <Input
               placeholder="johnsmith@example.com"
@@ -56,7 +56,7 @@ export default function HomeScreen() {
           <Button
             textStyle={{ color: "white", fontSize: 14 }}
             gradientColors={["black", "black"]}
-            onPress={() => router.push("/(app)/auth/sign-up")}
+            onPress={() => router.push("/auth/sign-up")}
           >
             Don't Have An Account ?
           </Button>
@@ -65,7 +65,7 @@ export default function HomeScreen() {
               style={{ borderWidth: 1, borderColor: "#F5640A33" }}
               textStyle={{ color: "#CE420FCC", fontSize: 14 }}
               gradientColors={["#EB874026", "#EB874026"]}
-              onPress={() => router.push("/")}
+              onPress={() => router.push("/(tabs)")}
             >
               Continue Without An Account
             </Button>

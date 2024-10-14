@@ -4,11 +4,8 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { useNavigation, useRouter } from "expo-router";
 
 export default function HomeScreen() {
-  const router = useRouter();
-  const navigation = useNavigation();
 
   return (
     <ParallaxScrollView

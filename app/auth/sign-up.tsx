@@ -11,8 +11,8 @@ export default function SignUp() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemedView className="flex justify-center items-center h-full px-7 py-12 bg-[#FFF6EF]">
-        <ThemedView className="mb-5 relative bg-[#FFF6EF]">
+      <ThemedView className="flex justify-center items-center h-full px-7 py-12 bg-primary">
+        <ThemedView className="mb-5 relative bg-primary">
           <ThemedText type="title" className="mt-10 z-10 text-center">
             Create New Account
           </ThemedText>
@@ -29,7 +29,7 @@ export default function SignUp() {
         </ThemedText>
 
         {/* Card for inputs */}
-        <View className="w-full bg-white rounded-lg p-6 mt-6 shadow-lg">
+        <View className="w-full bg-secondary rounded-lg p-6 mt-6 shadow-lg">
           <ThemedView className="mb-5">
             <Input
               placeholder="John Smith"
@@ -63,7 +63,7 @@ export default function SignUp() {
           <Button
             textStyle={{ color: "white", fontSize: 14 }}
             gradientColors={["black", "black"]}
-            onPress={() => router.push("/(app)/auth/sign-in")}
+            onPress={() => router.push("/auth/sign-in")}
           >
             Already Have An Account ?
           </Button>
@@ -72,7 +72,7 @@ export default function SignUp() {
               style={{ borderWidth: 1, borderColor: "#F5640A33" }}
               textStyle={{ color: "#CE420FCC", fontSize: 14 }}
               gradientColors={["#EB874026", "#EB874026"]}
-              onPress={() => router.push("/")}
+              onPress={() => router.push("/(tabs)")}
             >
               Continue Without An Account
             </Button>
