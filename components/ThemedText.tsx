@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     fontFamily: "Neuton",
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontFamily: "PoppinsBold",
   },
   link: {
     lineHeight: 30,
