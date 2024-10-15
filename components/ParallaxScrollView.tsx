@@ -73,8 +73,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   content: {
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
     flex: 1,
-    padding: 32,
+    marginTop: -30,
+    padding: 10,
     gap: 16,
     overflow: "hidden",
   },
