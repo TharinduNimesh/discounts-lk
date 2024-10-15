@@ -1,9 +1,9 @@
 import React from "react";
 import { ThemedView } from "@/components/ThemedView";
-import AppHeaderLayout from "@/components/AppHeader";
-import TabLayout from "@/components/AppTabs";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { StatusBar } from "expo-status-bar";
+import TabLayout from "@/components/Layout/AppTabs";
+import AppHeaderLayout from "@/components/Layout/AppHeader";
 
 export default function AppLayout() {
   const colorScheme = useColorScheme();
