@@ -48,9 +48,9 @@ export default function ProductList() {
       image: require("@/assets/images/product.webp"),
       name: "Delicious Dominos Pizza",
       shop: "Dominos",
-      price: "2499.00",
+      price: "5199.00",
       rating: "4.4",
-      count: "620",
+      count: "62",
       tags: [
         { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
         { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
