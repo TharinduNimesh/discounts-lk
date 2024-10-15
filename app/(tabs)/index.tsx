@@ -10,8 +10,10 @@ import {
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import ProductCard from "@/components/ProductCard";
+import { useRouter } from "expo-router";
 
 export default function ProductList() {
+  const router = useRouter(); // Expo Router
   // State to keep track of the selected category
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -255,7 +257,16 @@ export default function ProductList() {
 
         {/* Product List */}
         {products.map((product, index) => (
-          <ProductCard key={index} product={product} />
+          <ProductCard
+            key={index}
+            product={product}
+            onPress={() =>
+              router.push({
+                pathname: "/product_info",
+                params: { product: JSON.stringify(product) }, // Passing product data
+              })
+            }
+          />
         ))}
       </ThemedView>
     </ScrollView>

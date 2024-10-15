@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 // Define the ProductCard component
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onPress }) {
   const router = useRouter();
 
   const { image, name, shop, price, rating, count, tags } = product;
@@ -13,7 +13,7 @@ export default function ProductCard({ product }) {
   return (
     <ThemedView className="w-full rounded-lg shadow-2xl shadow-gray-400 mb-4">
       {/* Image on top */}
-      <Pressable onPress={() => router.push("/product_info")}>
+      <Pressable onPress={onPress}>
         <Image
           source={image}
           className="w-full h-[98] rounded-t-lg"
