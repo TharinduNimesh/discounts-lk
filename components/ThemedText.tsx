@@ -4,7 +4,7 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
+  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link" | "description" | "rating";
 };
 
 export function ThemedText({
@@ -25,6 +25,8 @@ export function ThemedText({
         type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
         type === "link" ? styles.link : undefined,
+        type === "description" ? styles.description : undefined,
+        type === "rating" ? styles.rating : undefined,
         style,
       ]}
       {...rest}
@@ -52,9 +54,21 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "PoppinsBold",
   },
+  description: {
+    fontSize: 22,
+    fontFamily: "Poppins",
+    color: "#000000CCC",
+  },
   link: {
     lineHeight: 30,
     fontSize: 16,
     color: "#0a7ea4",
   },
+
+  rating: {
+    fontSize: 14,
+    fontFamily: "Poppins",
+    color: "#00000099",
+  }
+  
 });
