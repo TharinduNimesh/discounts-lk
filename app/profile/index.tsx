@@ -27,9 +27,9 @@ export default function Profile() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <ThemedView className="h-full">
-        <HeaderComponent />
+    <ThemedView className="flex-1">
+      <HeaderComponent />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ThemedView className="flex items-center h-full px-7 py-[10] bg-primary">
           <ThemedView className="mb-5 mt-5 bg-primary">
             <ThemedText type="subtitle" className="text-center">
@@ -82,7 +82,7 @@ export default function Profile() {
             </Button>
           </View>
         </ThemedView>
-      </ThemedView>
-    </ScrollView>
+      </ScrollView>
+    </ThemedView>
   );
 }
