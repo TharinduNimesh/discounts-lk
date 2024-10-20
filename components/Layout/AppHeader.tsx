@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "../ThemedView";
@@ -26,17 +26,17 @@ export default function AppHeaderLayout() {
           onPress={() => router.push("/profile")}
         >
           <Image
-            source={require("@/assets/images/welcome-1.png")}
-            className="w-14 h-14 bg-blue-500 p-2 rounded-full"
+            source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }}
+            className="w-14 h-14 p-2 rounded-full"
           />
         </TouchableOpacity>
         <ThemedView className="ml-3">
-          <ThemedText className="text-sm font-bold -mb-2">
+          <Text style={styles.greating} className="text-sm font-bold -mb-4">
             Good Morning
-          </ThemedText>
-          <ThemedText type="default" className="font-bold">
+          </Text>
+          <Text style={styles.hello}>
             Hello Tharindu
-          </ThemedText>
+          </Text>
         </ThemedView>
       </ThemedView>
 
@@ -50,3 +50,16 @@ export default function AppHeaderLayout() {
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  greating: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: -2,
+    fontFamily: "Poppins"
+  },
+  hello: {
+    fontSize: 17,
+    fontFamily: "Poppins"
+  }
+});
