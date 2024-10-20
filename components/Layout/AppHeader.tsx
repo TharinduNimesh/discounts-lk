@@ -1,16 +1,25 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
+import HeadEllipse from "../Ellipse";
 
 export default function AppHeaderLayout() {
   const router = useRouter();
 
   return (
-    <ThemedView className="flex-row justify-between items-center px-4 pt-14 z-10 shadow-md shadow-blue-500 rounded-b-3xl">
+    <ThemedView
+      style={{
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12.5,
+        elevation: 6,
+      }}
+      className="relative flex-row justify-between items-center px-4 pt-14 z-10 shadow-md"
+    >
       {/* Left side with logo and text */}
-      <ThemedView className="flex-row items-center mb-4">
+      <ThemedView className="flex-row items-center mb-2">
         {/* TouchableOpacity to make the image a button */}
         <TouchableOpacity
           activeOpacity={0.6}
@@ -30,8 +39,13 @@ export default function AppHeaderLayout() {
           </ThemedText>
         </ThemedView>
       </ThemedView>
+
       <ThemedView className="mb-2">
         <FontAwesome5 name="map-marker-alt" size={32} color="#F5640A" />
+      </ThemedView>
+
+      <ThemedView className="bg-transparent absolute -bottom-2.5 left-0 right-0">
+        <HeadEllipse />
       </ThemedView>
     </ThemedView>
   );

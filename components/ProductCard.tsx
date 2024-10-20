@@ -8,14 +8,19 @@ import { useRouter } from "expo-router";
 export default function ProductCard({ product, onPress }) {
   const router = useRouter();
 
-  const { image, name, shop, price, rating, count, tags } = product;
+  const { index, image, name, shop, price, rating, count, tags } = product;
 
   return (
-    <ThemedView className="w-full rounded-lg shadow-2xl shadow-gray-400 mb-4">
+    <ThemedView
+      className="w-full rounded-lg shadow-2xl shadow-gray-400 mb-4 bg-black"
+      key={index}
+    >
       {/* Image on top */}
       <Pressable onPress={onPress}>
         <Image
-          source={image}
+          source={{
+            uri: image,
+          }}
           className="w-full h-[98] rounded-t-lg"
           resizeMode="cover"
         />
@@ -65,7 +70,7 @@ export default function ProductCard({ product, onPress }) {
             {tags.map((tag, index) => (
               <ThemedView
                 key={index}
-                className="px-2 py-1 mr-2 rounded-lg"
+                className="px-2 py-1 mr-2 rounded-[3px]"
                 style={{ backgroundColor: tag.bgColor }}
               >
                 <ThemedText
