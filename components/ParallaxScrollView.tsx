@@ -75,9 +75,10 @@ const styles = StyleSheet.create({
   content: {
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
+    backgroundColor: "#FFF6EF",
     flex: 1,
     marginTop: -30,
-    padding: 10,
+    padding: 0,
     gap: 16,
     overflow: "hidden",
   },

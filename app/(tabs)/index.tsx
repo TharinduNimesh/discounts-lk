@@ -11,6 +11,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import ProductCard from "@/components/ProductCard";
 import { useRouter } from "expo-router";
+import products from "@/scripts/products.json";
 
 export default function ProductList() {
   const router = useRouter(); // Expo Router
@@ -25,145 +26,6 @@ export default function ProductList() {
     { name: "Fries" },
     { name: "Pasta" },
     // Add more categories as needed
-  ];
-
-  const products = [
-    {
-      index: 1,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 2,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "5199.00",
-      rating: "4.4",
-      count: "62",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 3,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 4,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 5,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 6,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 7,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 8,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    {
-      index: 9,
-      image: require("@/assets/images/product.webp"),
-      name: "Delicious Dominos Pizza",
-      shop: "Dominos",
-      price: "2499.00",
-      rating: "4.4",
-      count: "620",
-      tags: [
-        { label: "Sponsored", bgColor: "#EB874033", textColor: "#F5640A" },
-        { label: "Food", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Pizza", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-        { label: "Dominos", bgColor: "#A6A6A633", textColor: "#3C3C4399" },
-      ],
-    },
-    // More products...
   ];
 
   return (
@@ -219,7 +81,7 @@ export default function ProductList() {
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 10 }}
+          contentContainerStyle={{ paddingHorizontal: 0 }}
         >
           {categories.map((category, index) => (
             <Pressable
@@ -263,7 +125,7 @@ export default function ProductList() {
             onPress={() =>
               router.push({
                 pathname: "/product_info",
-                params: { product: JSON.stringify(product) }, // Passing product data
+                params: { product: JSON.stringify(product) },
               })
             }
           />
