@@ -12,6 +12,7 @@ import { ThemedView } from "@/components/ThemedView";
 import ProductCard from "@/components/ProductCard";
 import { useRouter } from "expo-router";
 import products from "@/scripts/products.json";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function ProductList() {
   const router = useRouter(); // Expo Router
@@ -32,49 +33,57 @@ export default function ProductList() {
     <ScrollView className="bg-primary">
       <ThemedView className="flex-1 px-2 mt-4 bg-primary mb-16">
         {/* Card with Gradient Background */}
-        <ThemedView className="h-[191] bg-[#E99D23CC] rounded-3xl p-5 mb-4">
-          {/* Text on the card */}
-          <ThemedText className="text-4xl text-white" type="title">
-            Boost Your Sales,
-          </ThemedText>
-          <ThemedText className="text-4xl text-white" type="title">
-            Grow with Us!
-          </ThemedText>
-
-          {/* Transparent Curved Button */}
-          <TouchableOpacity
-            style={{
-              borderRadius: 20,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              backgroundColor: "#FFFFFF4D",
-              alignSelf: "flex-start",
-              marginTop: 20,
-            }}
-            activeOpacity={0.8}
-            onPress={() => console.log("Sign Up Pressed")}
+        <ThemedView className="h-[191] rounded-3xl mb-4 mt-5">
+          <LinearGradient
+            colors={["#E99D23", "#F5640A"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{ width: "100%", height: "100%" }}
+            className="p-5  rounded-3xl"
           >
-            <Text
-              style={{ color: "#FFFFFF", fontSize: 16, fontWeight: "bold" }}
-            >
-              CONTACT US
-            </Text>
-          </TouchableOpacity>
+            {/* Text on the card */}
+            <ThemedText className="text-4xl text-white" type="title">
+              Boost Your Sales,
+            </ThemedText>
+            <ThemedText className="text-4xl text-white" type="title">
+              Grow with Us!
+            </ThemedText>
 
-          {/* Rocket Image Positioned Top-Right */}
-          <View style={{ position: "relative" }}>
-            <Image
-              source={require("@/assets/images/rocket.png")}
+            {/* Transparent Curved Button */}
+            <TouchableOpacity
               style={{
-                width: 240,
-                height: 240,
-                position: "absolute",
-                top: -160,
-                right: -55,
+                borderRadius: 20,
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                backgroundColor: "#FFFFFF4D",
+                alignSelf: "flex-start",
+                marginTop: 20,
               }}
-              resizeMode="cover"
-            />
-          </View>
+              activeOpacity={0.8}
+              onPress={() => console.log("Sign Up Pressed")}
+            >
+              <Text
+                style={{ color: "#FFFFFF", fontSize: 16, fontWeight: "bold" }}
+              >
+                CONTACT US
+              </Text>
+            </TouchableOpacity>
+
+            {/* Rocket Image Positioned Top-Right */}
+            <View style={{ position: "relative" }}>
+              <Image
+                source={require("@/assets/images/rocket.png")}
+                style={{
+                  width: 240,
+                  height: 240,
+                  position: "absolute",
+                  top: -160,
+                  right: -55,
+                }}
+                resizeMode="cover"
+              />
+            </View>
+          </LinearGradient>
         </ThemedView>
 
         {/* Scrollable Categories Section */}
@@ -89,21 +98,28 @@ export default function ProductList() {
               style={{
                 marginTop: 30,
                 marginBottom: 40,
-                alignItems: "center",
                 marginRight: 10,
-                paddingVertical: 10,
-                paddingHorizontal: 20,
                 borderRadius: 20,
                 backgroundColor:
                   selectedCategory === category.name ? "#000000" : "#A6A6A630",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: 80,
+                height: 40,
               }}
               onPress={() => setSelectedCategory(category.name)}
             >
               <Text
                 style={{
                   color:
-                    selectedCategory === category.name ? "#FFFFFF" : "#333",
+                    selectedCategory === category.name ? "#FFFFFF" : "#686868",
                   fontSize: 14,
+                  fontFamily: "Poppins",
+                  fontWeight:
+                    selectedCategory === category.name ? "bold" : "normal",
+                  marginTop: selectedCategory !== category.name && 2,
+                  paddingHorizontal: 20,
                 }}
               >
                 {category.name}

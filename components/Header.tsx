@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
@@ -25,16 +25,14 @@ export default function HeaderComponent() {
 
         {/* TouchableOpacity to make the image a button */}
         <Image
-          source={require("@/assets/images/welcome-1.png")}
-          className="w-14 h-14 ml-2 bg-blue-500 p-2 rounded-full"
+          source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }}
+          className="w-14 h-14 p-2 rounded-full"
         />
         <ThemedView className="ml-3">
-          <ThemedText className="text-sm font-bold -mb-2">
+          <Text style={styles.greating} className="text-sm font-bold -mb-2">
             Good Morning
-          </ThemedText>
-          <ThemedText type="default" className="font-bold">
-            Hello Tharindu
-          </ThemedText>
+          </Text>
+          <Text style={styles.hello}>Hello Tharindu</Text>
         </ThemedView>
       </ThemedView>
 
@@ -50,3 +48,16 @@ export default function HeaderComponent() {
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  greating: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: -2,
+    fontFamily: "Poppins",
+  },
+  hello: {
+    fontSize: 17,
+    fontFamily: "Poppins",
+  },
+});

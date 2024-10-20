@@ -2,94 +2,97 @@
   {
     "index": 1,
     "image": "https://b3282088.smushcdn.com/3282088/wp-content/uploads/2024/05/juicy-grilled-burgers-768x512.jpeg?lossy=2&strip=1&webp=1",
-    "name": "Juicy Grilled Burger",
+    "name": "Juicy Grilled Burger - 20% Off in May",
     "shop": "Burger King",
     "price": "1599.00",
     "rating": "4.7",
     "count": "1230",
     "tags": [
-      { "label": "Fast Food", "bgColor": "#A6D9FF33", "textColor": "#1E90FF" },
-      { "label": "Burger", "bgColor": "#FFC73333", "textColor": "#FF8C00" }
+      { "label": "Sponsored", "isSponsored": true },
+      { "label": "Fast Food", "isSponsored": false },
+      { "label": "Burger", "isSponsored": false }
     ]
   },
   {
     "index": 2,
     "image": "https://img.freepik.com/premium-photo/sushi-platter-assorted-sushi-rolls-featuring-fresh-fish-avocado-cucumber-rice-served-with-soy-sauce-wasabi_130181-3510.jpg",
-    "name": "Fresh Sushi Platter",
+    "name": "Fresh Sushi Platter - 10% Off in May",
     "shop": "Sushi Express",
     "price": "2899.00",
     "rating": "4.9",
     "count": "750",
     "tags": [
-      { "label": "Japanese", "bgColor": "#FFCCAA33", "textColor": "#FF6600" },
-      { "label": "Seafood", "bgColor": "#DDAADD33", "textColor": "#990099" },
-      { "label": "Healthy", "bgColor": "#A6D9FF33", "textColor": "#1E90FF" }
+      { "label": "Sponsored", "isSponsored": true },
+      { "label": "Japanese", "isSponsored": false },
+      { "label": "Seafood", "isSponsored": false },
+      { "label": "Healthy", "isSponsored": false }
     ]
   },
   {
     "index": 3,
     "image": "https://www.allrecipes.com/thmb/gTibTRJ8MW87L0jMhAvXPjIDD94=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/19402-quick-and-easy-alfredo-sauce-DDMFS-4x3-17abb2055c714807944172db9172b045.jpg",
-    "name": "Creamy Alfredo Pasta",
+    "name": "Creamy Alfredo Pasta - Buy One Get One Free",
     "shop": "Pasta Palace",
     "price": "1999.00",
     "rating": "4.3",
     "count": "920",
     "tags": [
-      { "label": "Italian", "bgColor": "#FFC73333", "textColor": "#FF8C00" },
-      { "label": "Pasta", "bgColor": "#A6D9FF33", "textColor": "#1E90FF" }
+      { "label": "Sponsored", "isSponsored": true },
+      { "label": "Italian", "isSponsored": false },
+      { "label": "Pasta", "isSponsored": false }
     ]
   },
   {
     "index": 4,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQovWQjW8eqtOUNGlvMHDqZ02Sm6DEFptYV1A&s",
-    "name": "Chocolate Fudge Ice Cream",
+    "name": "Chocolate Fudge Ice Cream - 30% Off in Family Pack",
     "shop": "Cold Stone",
     "price": "799.00",
     "rating": "4.8",
     "count": "1150",
     "tags": [
-      { "label": "Dessert", "bgColor": "#DDAADD33", "textColor": "#990099" },
-      { "label": "Ice Cream", "bgColor": "#FFCCAA33", "textColor": "#FF6600" }
+      { "label": "Dessert", "isSponsored": false },
+      { "label": "Ice Cream", "isSponsored": false }
     ]
   },
   {
     "index": 5,
     "image": "https://d2lswn7b0fl4u2.cloudfront.net/photos/pg-salted-caramel-latte-1661428456.jpg",
-    "name": "Caramel Latte",
+    "name": "Caramel Latte - 20% Off in May",
     "shop": "Starbucks",
     "price": "499.00",
     "rating": "4.5",
     "count": "480",
     "tags": [
-      { "label": "Beverage", "bgColor": "#FFC73333", "textColor": "#FF8C00" },
-      { "label": "Coffee", "bgColor": "#A6A6A633", "textColor": "#3C3C4399" }
+      { "label": "Beverage", "isSponsored": false },
+      { "label": "Coffee", "isSponsored": false }
     ]
   },
   {
     "index": 6,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4FYPMGKtHQFZZhLzuo3s3g8qc4kCcrMBv7w&s",
-    "name": "Grilled Ribeye Steak",
+    "name": "Grilled Ribeye Steak - 15% Off in May",
     "shop": "Steak House",
     "price": "3299.00",
     "rating": "4.6",
     "count": "850",
     "tags": [
-      { "label": "Grilled", "bgColor": "#EB874033", "textColor": "#F5640A" },
-      { "label": "Steak", "bgColor": "#FFC73333", "textColor": "#FF8C00" },
-      { "label": "Meat", "bgColor": "#A6D9FF33", "textColor": "#1E90FF" }
+      { "label": "Grilled", "isSponsored": false },
+      { "label": "Steak", "isSponsored": false },
+      { "label": "Meat", "isSponsored": false }
     ]
   },
   {
     "index": 7,
     "image": "https://www.allrecipes.com/thmb/W5Ou0-fSTAHi5vM9FdJkplRzgNQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/212429-red-velvet-cupcakes-ddmfs-0178-3x4-hero-e5cd9e2684dd4d90b40d9aa0d42e3ee2.jpg",
-    "name": "Red Velvet Cupcake",
+    "name": "Red Velvet Cupcake - 20% Off in May",
     "shop": "Sweet Bites",
     "price": "499.00",
     "rating": "4.9",
     "count": "320",
     "tags": [
-      { "label": "Dessert", "bgColor": "#FFCCAA33", "textColor": "#FF6600" },
-      { "label": "Cupcake", "bgColor": "#DDAADD33", "textColor": "#990099" }
+      { "label": "Dessert", "isSponsored": false },
+      { "label": "Cupcake", "isSponsored": false }
     ]
   }
 ]
