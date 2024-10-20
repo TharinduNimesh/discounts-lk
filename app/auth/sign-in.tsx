@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-primary">
       <ThemedView className="h-full px-7 py-12 bg-primary">
         <ThemedView className="mt-10 mb-5 relative bg-primary">
           <ThemedText type="title" className="text-center z-10">

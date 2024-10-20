@@ -46,13 +46,6 @@ export default function RootLayout() {
           name="product_info/index"
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="product_info"
-          options={{
-            presentation: "modal",
-            headerShown: false,
-          }}
-        />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

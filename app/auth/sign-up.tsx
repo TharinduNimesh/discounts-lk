@@ -10,7 +10,7 @@ export default function SignUp() {
   const router = useRouter();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-primary">
       <ThemedView className="flex justify-center items-center h-full px-7 py-12 bg-primary">
         <ThemedView className="mb-5 relative bg-primary">
           <ThemedText type="title" className="mt-10 z-10 text-center">
