@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: "Poppins",
     color: "#000000CCC",
+    lineHeight: 26,
   },
   link: {
     lineHeight: 30,
