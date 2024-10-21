@@ -6,6 +6,8 @@ import {
   FlatList,
   View,
   Keyboard,
+  Image,
+  StyleSheet,
 } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -100,7 +102,7 @@ export default function SearchScreen() {
                 backgroundColor:
                   selectedCategory === category.name ? "#D9D9D94D" : "#ffffff",
                 borderBottomColor:
-                  selectedCategory === category.name ? "#000000" : "#A6A6A630",
+                  selectedCategory === category.name ? "#000000" : "#ffffff",
               }}
               onPress={() => setSelectedCategory(category.name)}
             >
@@ -109,6 +111,7 @@ export default function SearchScreen() {
                   color:
                     selectedCategory === category.name ? "#000000" : "#333",
                   fontSize: 14,
+                  fontFamily: "Poppins",
                 }}
               >
                 {category.name}
@@ -120,25 +123,105 @@ export default function SearchScreen() {
 
       {/* Autocomplete Suggestions List */}
       {searchText.length > 0 && suggestions.length > 0 ? (
-        <ThemedView className="h-full">
-          <FlatList
-            className="bg-primary"
-            data={suggestions}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <Pressable
-                onPress={() => handleSuggestionSelect(item)} // Navigate to product page on selection
-                style={{
-                  padding: 10,
-                  borderBottomWidth: 1,
-                  borderColor: "#ccc",
-                }}
-              >
-                <Text>{item.name}</Text>
-              </Pressable>
-            )}
-          />
-        </ThemedView>
+        <ScrollView>
+          <ThemedView className="h-full">
+            <ThemedText className="ml-3" style={styles.subtitle}>
+              SUGGESTIONS
+            </ThemedText>
+            <FlatList
+              className="bg-primary"
+              data={suggestions}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => handleSuggestionSelect(item)} // Navigate to product page on selection
+                  style={{
+                    padding: 10,
+                    borderBottomWidth: 1,
+                    borderColor: "#ccc",
+                  }}
+                >
+                  <ThemedView className="flex flex-row bg-primary">
+                    <ThemedView className="bg-primary">
+                      <Image
+                        source={{ uri: item.image }}
+                        style={{
+                          width: 67,
+                          height: 75,
+                          borderRadius: 5,
+                          marginRight: 10,
+                        }}
+                        resizeMode="cover"
+                      />
+                    </ThemedView>
+                    <ThemedView className="bg-primary flex-1">
+                      <ThemedText
+                        style={styles.rating}
+                        className="text-black"
+                        numberOfLines={1}
+                      >
+                        {item.name}
+                      </ThemedText>
+
+                      <View className="flex flex-row items-center justify-between ">
+                        {/* First column for price */}
+                        <View className="flex flex-row">
+                          <Text style={styles.textSecondary}>FROM</Text>
+                          <Text style={styles.shopName}>{item.shop}</Text>
+                        </View>
+                      </View>
+                      <View className="flex-row justify-end items-center">
+                        <AntDesign name="star" size={18} color="orange" />
+                        <ThemedText
+                          style={styles.textSecondary}
+                          className="mt-1 ml-2"
+                        >
+                          {item.rating}
+                        </ThemedText>
+                        <ThemedText
+                          style={styles.textSecondary}
+                          className="mt-1 ml-1"
+                        >
+                          ({item.count})
+                        </ThemedText>
+                      </View>
+                    </ThemedView>
+                  </ThemedView>
+                </Pressable>
+              )}
+            />
+            <ThemedText className="ml-3" style={styles.subtitle}>
+            SEARCH FOR
+            </ThemedText>
+            <FlatList
+              className="bg-primary"
+              data={suggestions}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => handleSuggestionSelect(item)} // Navigate to product page on selection
+                  style={{
+                    padding: 10,
+                    borderBottomWidth: 1,
+                    borderColor: "#ccc",
+                  }}
+                >
+                  <ThemedView className="flex flex-row bg-primary">
+                    <ThemedView className="bg-primary flex-1">
+                      <ThemedText
+                        style={styles.rating}
+                        className="text-black"
+                        numberOfLines={1}
+                      >
+                        {item.name}
+                      </ThemedText>
+                    </ThemedView>
+                  </ThemedView>
+                </Pressable>
+              )}
+            />
+          </ThemedView>
+        </ScrollView>
       ) : (
         <ScrollView className="bg-primary h-full">
           <ThemedView className="flex-1 px-2 mt-4 bg-primary mb-16">
@@ -172,3 +255,68 @@ export default function SearchScreen() {
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  default: {
+    fontSize: 17,
+    lineHeight: 34,
+    fontFamily: "Poppins",
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 24,
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  divider: {
+    borderBottomColor: "#00000099",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginVertical: 0,
+    width: "100%",
+  },
+  defaultSemiBold: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: "600",
+  },
+  textSecondary: {
+    fontSize: 13,
+    fontFamily: "Poppins",
+    color: "#00000099",
+  },
+  title: {
+    fontSize: 60,
+    lineHeight: 52,
+    fontFamily: "Neuton",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontFamily: "PoppinsBold",
+  },
+  description: {
+    fontSize: 22,
+    fontFamily: "Poppins",
+    color: "#000000CCC",
+    lineHeight: 26,
+  },
+  link: {
+    lineHeight: 30,
+    fontSize: 16,
+    color: "#0a7ea4",
+  },
+  shopName: {
+    fontSize: 13,
+    fontFamily: "Poppins",
+    color: "#000000CC",
+    fontWeight: "bold",
+    marginLeft: 5,
+  },
+
+  rating: {
+    fontSize: 16,
+    fontFamily: "Poppins",
+    color: "#000000",
+    lineHeight: 24,
+  },
+});
