@@ -1,31 +1,26 @@
 import {
-  Image,
-  StyleSheet,
-  Platform,
-  View,
-  Button,
+  ScrollView,
+  TextInput,
   Pressable,
   Text,
-  TouchableOpacity,
-  ScrollView,
-  useWindowDimensions,
-  TextInput,
+  FlatList,
+  View,
+  Keyboard,
 } from "react-native";
-
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import Ellipse from "@/components/Ellipse";
+import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import { useRouter } from "expo-router";
 import products from "@/scripts/products.json";
-import Input from "@/components/ButtonsAndInputs/UInput";
-import { AntDesign } from "@expo/vector-icons";
 
 export default function SearchScreen() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchText, setSearchText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [filteredResults, setFilteredResults] = useState(products);
+  const router = useRouter();
 
   const categories = [
     { name: "All" },
@@ -37,29 +32,56 @@ export default function SearchScreen() {
     // Add more categories as needed
   ];
 
-  const layout = useWindowDimensions();
+  const handleSearchChange = (text) => {
+    setSearchText(text);
+    if (text.length > 0) {
+      const filteredSuggestions = products.filter((product) =>
+        product.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: "first", title: "First" },
-    { key: "second", title: "Second" },
-  ]);
+  const handleSuggestionSelect = (suggestion) => {
+    setSearchText(suggestion.name);
+    setSuggestions([]);
+    Keyboard.dismiss();
+
+    router.push({
+      pathname: "/product_info",
+      params: { product: JSON.stringify(suggestion) },
+    });
+  };
+
+  const handleSearchSubmit = (text) => {
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredResults(filteredProducts);
+    setSuggestions([]); // Clear suggestions on submit
+    Keyboard.dismiss(); // Dismiss keyboard after submitting search
+  };
 
   return (
     <ThemedView>
       <ThemedView className="bg-secondary">
+        {/* Search Input */}
         <ThemedView className="p-6 mt-6">
           <ThemedView className="flex-row items-center bg-secondary rounded-full p-3 border-2 border-[#CCCCCC]">
             <AntDesign name="search1" size={24} color="#B2B2B2" />
             <TextInput
-              className="ml-2 text-[#B2B2B2]  flex-1"
+              className="ml-2 text-[#B2B2B2] flex-1"
               placeholder="Store, Product, etc."
-              // value={searchText}
-              // onChangeText={setSearchText}
+              value={searchText}
+              onChangeText={handleSearchChange} // Update suggestions as user types
+              onSubmitEditing={() => handleSearchSubmit(searchText)} // Trigger search on pressing "Enter" or "Done"
             />
           </ThemedView>
         </ThemedView>
 
+        {/* Category ScrollView */}
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -96,47 +118,57 @@ export default function SearchScreen() {
         </ScrollView>
       </ThemedView>
 
-      <ScrollView className="bg-primary">
-        <ThemedView className="flex-1 px-2 mt-4 bg-primary mb-16">
-          {/* Discounts Section */}
-          <ThemedText className="text-2xl mb-3" type="subtitle">
-            Result Of “Dominos”
-          </ThemedText>
-
-          {/* Product List */}
-          {products.map((product, index) => (
-            <ProductCard
-              key={index}
-              product={product}
-              onPress={() =>
-                router.push({
-                  pathname: "/product_info",
-                  params: { product: JSON.stringify(product) },
-                })
-              }
-            />
-          ))}
+      {/* Autocomplete Suggestions List */}
+      {searchText.length > 0 && suggestions.length > 0 ? (
+        <ThemedView className="h-full">
+          <FlatList
+            className="bg-primary"
+            data={suggestions}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <Pressable
+                onPress={() => handleSuggestionSelect(item)} // Navigate to product page on selection
+                style={{
+                  padding: 10,
+                  borderBottomWidth: 1,
+                  borderColor: "#ccc",
+                }}
+              >
+                <Text>{item.name}</Text>
+              </Pressable>
+            )}
+          />
         </ThemedView>
-      </ScrollView>
+      ) : (
+        <ScrollView className="bg-primary h-full">
+          <ThemedView className="flex-1 px-2 mt-4 bg-primary mb-16">
+            {/* Display Results Title */}
+            <ThemedText className="text-2xl mb-3" type="subtitle">
+              Results for “{searchText || "All"}”
+            </ThemedText>
+
+            {/* Display Filtered Products */}
+            <ThemedView className="mb-48 bg-primary">
+              {filteredResults.length > 0 ? (
+                filteredResults.map((product, index) => (
+                  <ProductCard
+                    key={index}
+                    product={product}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/product_info",
+                        params: { product: JSON.stringify(product) },
+                      })
+                    }
+                  />
+                ))
+              ) : (
+                <ThemedText>No results found.</ThemedText>
+              )}
+            </ThemedView>
+          </ThemedView>
+        </ScrollView>
+      )}
     </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});

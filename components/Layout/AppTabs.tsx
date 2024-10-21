@@ -5,11 +5,11 @@ import { StyleSheet, View } from "react-native";
 import HeadEllipse from "../Ellipse";
 
 export default function TabLayout() {
-  const activeColor = "#000000"; // Active tab color
-  const inactiveColor = "#000000"; // Inactive tab color
+  const activeColor = "#000000";
+  const inactiveColor = "#000000";
 
   return (
-    <View style={{ flex: 1 }}>
+    <>
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -69,7 +69,7 @@ export default function TabLayout() {
       <View style={styles.ellipseContainer}>
         <HeadEllipse />
       </View>
-    </View>
+    </>
   );
 }
 
