@@ -45,11 +45,11 @@ export default function Profile() {
                 {/* Profile picture pressable */}
                 <Pressable onPress={selectImage}>
                   <Image
-                    source={
-                      selectedImage
-                        ? { uri: selectedImage } // Display selected image if available
-                        : require("@/assets/images/welcome-1.png") // Default image
-                    }
+                    source={{
+                      uri:
+                        selectedImage ??
+                        "https://randomuser.me/api/portraits/men/1.jpg",
+                    }}
                     className="w-[122] h-[122] bg-blue-500 rounded-full"
                   />
                   {/* Edit icon overlay */}
@@ -60,12 +60,21 @@ export default function Profile() {
               </ThemedView>
             </View>
             <ThemedView className="mt-[80] px-6">
-              <Input placeholder="John Smith" label="Full Name" />
+              <Input
+                placeholder="John Smith"
+                label="Full Name"
+                editable={false}
+                selectTextOnFocus={false}
+                value="Tharindu Nimesh"
+              />
               <View className="mt-3">
                 <Input
                   placeholder="johnsmith@example.com"
                   keyboardType="email-address"
                   label="Email Address"
+                  editable={false}
+                  selectTextOnFocus={false}
+                  value="tharindunimesh@eversoft.lk"
                 />
               </View>
             </ThemedView>
@@ -76,7 +85,7 @@ export default function Profile() {
             <Button
               textStyle={{ color: "white", fontSize: 14 }}
               gradientColors={["#E99D23", "#F5640A"]}
-              onPress={() => console.log("Sign Out")}
+              onPress={() => {router.push("/auth/sign-in")}}
             >
               Sign Out
             </Button>

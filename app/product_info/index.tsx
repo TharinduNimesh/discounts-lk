@@ -22,7 +22,12 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useCallback, useRef, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
+import Tag from "@/components/Tag";
+import Question from "@/components/Question";
 
 export default function InfoScreen({}) {
   // ref
@@ -98,7 +103,7 @@ export default function InfoScreen({}) {
 
   ### Hurry:
 
-  This offer is available for a limited time only, so head over to your nearest Domino’s today and take advantage of this unbeatable deal!
+  This offer is available for a limited time only, so head over to your nearest Domino's today and take advantage of this unbeatable deal!
   
 `;
 
@@ -117,33 +122,39 @@ export default function InfoScreen({}) {
             }
           >
             <ThemedView className="bg-[#FFF6EF] p-4">
-              <ThemedText type="description">{productData.name}</ThemedText>
-              <ThemedView className="flex flex-row justify-between mb-4">
+              <ThemedText type="description" className="mt-1">
+                {productData.name}
+              </ThemedText>
+              <View className="flex flex-row items-center justify-between mb-4">
                 {/* First column for price */}
-                <ThemedView className="flex-1 bg-[#FFF6EF]">
-                  <ThemedText>
-                    FROM{" "}
-                    <ThemedText className=" font-bold text-[#000000CC]">
-                      {productData.shop}
-                    </ThemedText>{" "}
+                <View className="flex flex-row">
+                  <Text style={styles.textSecondary}>FROM</Text>
+                  <Text style={styles.shopName}>{productData.shop}</Text>
+                </View>
+
+                <View className="flex-row items-center">
+                  <AntDesign name="star" size={18} color="orange" />
+                  <ThemedText
+                    style={styles.textSecondary}
+                    className="mt-1 ml-2"
+                  >
+                    {productData.rating}
                   </ThemedText>
-                </ThemedView>
-
-                <ThemedView className="flex-1 flex-row justify-end bg-[#FFF6EF] ">
-                  <ThemedView className="flex flex-row items-center gap-2 bg-[#FFF6EF]">
-                    <AntDesign name="star" size={24} color="orange" />
-                    <ThemedView className="flex flex-row pt-1 bg-[#FFF6EF]">
-                      <ThemedText>{productData.rating}</ThemedText>
-                      <ThemedText>({productData.count})</ThemedText>
-                    </ThemedView>
-                  </ThemedView>
-                </ThemedView>
-              </ThemedView>
+                  <ThemedText
+                    style={styles.textSecondary}
+                    className="mt-1 ml-1"
+                  >
+                    ({productData.count})
+                  </ThemedText>
+                </View>
+              </View>
 
               <ThemedView className="flex flex-row justify-between mb-4">
                 {/* First column for price */}
                 <ThemedView className="flex-1 bg-[#FFF6EF]">
-                  <ThemedText>RS.{productData.price}</ThemedText>
+                  <Text style={styles.textSecondary} className="text-lg">
+                    Rs. {productData.price}
+                  </Text>
                 </ThemedView>
 
                 <ThemedView className="flex flex-row justify-end bg-[#FFF6EF]">
@@ -158,7 +169,7 @@ export default function InfoScreen({}) {
 
               <Markdown
                 style={{
-                  body: { fontSize: 18, lineHeight: 34 },
+                  body: { fontSize: 18, lineHeight: 34, color: "#000000B3" },
                   heading3: { color: "#000000CC", fontWeight: "bold" },
                 }}
               >
@@ -167,18 +178,11 @@ export default function InfoScreen({}) {
 
               <ThemedView className="mt-2 flex flex-row flex-wrap bg-[#FFF6EF]">
                 {productData.tags.map((tag, index) => (
-                  <ThemedView
+                  <Tag
                     key={index}
-                    className="px-2 py-1 mr-2 rounded-[3px]"
-                    style={[styles.tag, { backgroundColor: tag.bgColor }]}
-                  >
-                    <ThemedText
-                      className="text-xs"
-                      style={{ color: tag.textColor }}
-                    >
-                      {tag.label}
-                    </ThemedText>
-                  </ThemedView>
+                    label={tag.label}
+                    isSponsored={tag.isSponsored}
+                  />
                 ))}
               </ThemedView>
 
@@ -215,7 +219,9 @@ export default function InfoScreen({}) {
                   onPress={handlePresentModalPress}
                   className="bg-black px-4 rounded justify-center items-center"
                 >
-                  <ThemedText className="text-white">Write a Review</ThemedText>
+                  <ThemedText className="text-white mt-1">
+                    Write a Review
+                  </ThemedText>
                 </Pressable>
               </ThemedView>
               {reviews.map((review) => (
@@ -227,6 +233,9 @@ export default function InfoScreen({}) {
                       className="w-12 h-12 rounded-full"
                     />
                     <ThemedView className="ml-4 flex-1">
+                      <ThemedText className="text-gray-500 text-xs">
+                        {review.time}
+                      </ThemedText>
                       <ThemedView className="flex-row justify-between items-center">
                         <ThemedText className="text-lg font-bold text-orange-600">
                           {review.name}
@@ -236,15 +245,14 @@ export default function InfoScreen({}) {
                           <Text className="">{review.rating}</Text>
                         </ThemedView>
                       </ThemedView>
-                      <ThemedText className="text-gray-500 text-xs">
-                        {review.time}
-                      </ThemedText>
                       <ThemedText className="text-sm mt-2">
                         {review.review}
                       </ThemedText>
                     </ThemedView>
                   </ThemedView>
-                  <ThemedView style={styles.divider} />
+                  <View className="w-full px-10">
+                    <ThemedView style={styles.divider} />
+                  </View>
                 </ThemedView>
               ))}
             </ThemedView>
@@ -257,12 +265,26 @@ export default function InfoScreen({}) {
                 Write a Review
               </ThemedText>
 
-              <View className="flex-row justify-between w-[50%] mb-5">
+              <View className="flex flex-row w-full">
+                <View>
+                  <View className="w-10 h-10 bg-black rounded-full" />
+                </View>
+                <View className="flex-1 pl-2">
+                  <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
+                    Tharindu Nimesh
+                  </Text>
+                  <Text style={{ fontFamily: "Poppins", color: "#00000080" }}>
+                    Reviews are public and include your name and profile photo.
+                  </Text>
+                </View>
+              </View>
+
+              <View className="flex flex-row justify-between w-2/3 mb-5 self-center mt-5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Pressable key={star} onPress={() => setRating(star)}>
                     <AntDesign
                       name="star"
-                      size={24}
+                      size={32}
                       color={star <= (rating || 0) ? "orange" : "gray"}
                     />
                   </Pressable>
@@ -270,22 +292,60 @@ export default function InfoScreen({}) {
               </View>
 
               <TextInput
-                placeholder="Write your review here..."
+                placeholder="Write your review here... (Optional)"
                 value={newReview}
-                numberOfLines={5}
                 onChangeText={setNewReview}
-                className="h-auto w-full border border-gray-300 p-2 mb-4"
+                className="h-auto w-full border border-gray-300 p-2 mb-4 rounded-lg"
+                style={{ fontFamily: "Poppins", fontSize: 14 }}
                 multiline={true}
               />
 
-              <Button
-                style={{ width: "100%", marginTop: 12 }}
-                textStyle={{ color: "white", fontSize: 14 }}
-                gradientColors={["#E99D23", "#F5640A"]}
-                onPress={handleReviewSubmit}
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+                className="mt-4"
               >
-                Submit Review
-              </Button>
+                Tell Us more (Optional)
+              </Text>
+
+              <View className="flex flex-row w-full mt-4">
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ paddingHorizontal: 0 }}
+                >
+                  <Question
+                    question="Do you recommend this product to others ?"
+                    answers={["Yes", "No"]}
+                    selectedAnswer="Yes"
+                  />
+
+                  <Question
+                    question="Are you satisfied with the quality of the product ?"
+                    answers={["Yes", "No"]}
+                  />
+
+                  <Question
+                    question="Do you like other products from this shop ?"
+                    answers={["Yes", "No"]}
+                    selectedAnswer="No"
+                  />
+                </ScrollView>
+              </View>
+
+              <View className="mt-8 w-full">
+                <Button
+                  style={{ width: "100%", marginTop: 12 }}
+                  textStyle={{ color: "white", fontSize: 14 }}
+                  gradientColors={["#E99D23", "#F5640A"]}
+                  onPress={handleReviewSubmit}
+                >
+                  Submit Review
+                </Button>
+              </View>
             </BottomSheetView>
           </BottomSheetModal>
         </ThemedView>
@@ -303,7 +363,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   divider: {
-    borderBottomColor: "black",
+    borderBottomColor: "#00000099",
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: 0,
     width: "100%",
@@ -311,6 +371,20 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     padding: 24,
-    alignItems: "center",
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  textSecondary: {
+    fontSize: 16,
+    fontFamily: "Poppins",
+    color: "#00000099",
+  },
+  shopName: {
+    fontSize: 16,
+    fontFamily: "Poppins",
+    color: "#000000CC",
+    fontWeight: "bold",
+    marginLeft: 5,
   },
 });
