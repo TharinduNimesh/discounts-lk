@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Keyboard, Platform } from "react-native";
 import HeadEllipse from "../Ellipse";
 
 export default function TabLayout() {
   const activeColor = "#000000";
   const inactiveColor = "#000000";
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <>
@@ -15,6 +36,7 @@ export default function TabLayout() {
           headerShown: false,
           tabBarStyle: styles.tabBar,
           tabBarLabelStyle: { display: "none" },
+          tabBarHideOnKeyboard: true,
         }}
       >
         <Tabs.Screen
@@ -65,10 +87,11 @@ export default function TabLayout() {
         />
       </Tabs>
 
-      {/* Adding the Ellipse behind the tab bar */}
-      <View style={styles.ellipseContainer}>
-        <HeadEllipse />
-      </View>
+      {!keyboardVisible && (
+        <View style={styles.ellipseContainer}>
+          <HeadEllipse />
+        </View>
+      )}
     </>
   );
 }
@@ -82,8 +105,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    elevation: 0, // Removes shadow on Android
-    borderTopWidth: 0, // Removes any border at the top
+    elevation: 0,
+    borderTopWidth: 0,
   },
   searchContainer: {
     backgroundColor: "#ff6347",
@@ -93,9 +116,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    bottom: 15,
+    bottom: Platform.OS === "ios" ? 15 : 15,
     left: "50%",
     transform: [{ translateX: -35 }],
+    zIndex: 11,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
   },
   searchback: {
     // Empty if no additional styles needed
@@ -109,8 +138,9 @@ const styles = StyleSheet.create({
   },
   ellipseContainer: {
     position: "absolute",
-    bottom: 61.2,
+    bottom: Platform.OS === "ios" ? 60 : 61.2,
     left: 0,
     right: 0,
+    zIndex: 9,
   },
 });
