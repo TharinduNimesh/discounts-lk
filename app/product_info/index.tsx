@@ -2,10 +2,12 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import {
   Image,
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import HeaderComponent from "@/components/Header";
@@ -259,94 +261,97 @@ export default function InfoScreen({}) {
           </ParallaxScrollView>
 
           {/* BottomSheetModal for writing a review */}
-          <BottomSheetModal ref={bottomSheetModalRef} snapPoints={["60%"]}>
-            <BottomSheetView style={styles.contentContainer}>
-              <ThemedText type="subtitle" className="mb-5">
-                Write a Review
-              </ThemedText>
+          <BottomSheetModal ref={bottomSheetModalRef} snapPoints={["78%"]}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <BottomSheetView style={styles.contentContainer}>
+                <ThemedText type="subtitle" className="mb-5">
+                  Write a Review
+                </ThemedText>
 
-              <View className="flex flex-row w-full">
-                <View>
-                  <View className="w-10 h-10 bg-black rounded-full" />
+                <View className="flex flex-row w-full">
+                  <View>
+                    <View className="w-10 h-10 bg-black rounded-full" />
+                  </View>
+                  <View className="flex-1 pl-2">
+                    <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
+                      Tharindu Nimesh
+                    </Text>
+                    <Text style={{ fontFamily: "Poppins", color: "#00000080" }}>
+                      Reviews are public and include your name and profile
+                      photo.
+                    </Text>
+                  </View>
                 </View>
-                <View className="flex-1 pl-2">
-                  <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
-                    Tharindu Nimesh
-                  </Text>
-                  <Text style={{ fontFamily: "Poppins", color: "#00000080" }}>
-                    Reviews are public and include your name and profile photo.
-                  </Text>
-                </View>
-              </View>
 
-              <View className="flex flex-row justify-between w-2/3 mb-5 self-center mt-5">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Pressable key={star} onPress={() => setRating(star)}>
-                    <AntDesign
-                      name="star"
-                      size={32}
-                      color={star <= (rating || 0) ? "orange" : "gray"}
+                <View className="flex flex-row justify-between w-2/3 mb-5 self-center mt-5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Pressable key={star} onPress={() => setRating(star)}>
+                      <AntDesign
+                        name="star"
+                        size={32}
+                        color={star <= (rating || 0) ? "orange" : "gray"}
+                      />
+                    </Pressable>
+                  ))}
+                </View>
+
+                <TextInput
+                  placeholder="Write your review here... (Optional)"
+                  value={newReview}
+                  onChangeText={setNewReview}
+                  className="h-auto w-full border border-gray-300 p-2 mb-4 rounded-lg"
+                  style={{ fontFamily: "Poppins", fontSize: 14 }}
+                  multiline={true}
+                />
+
+                <Text
+                  style={{
+                    fontFamily: "Poppins",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                  }}
+                  className="mt-4"
+                >
+                  Tell Us more (Optional)
+                </Text>
+
+                <View className="flex flex-row w-full mt-4">
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: 0 }}
+                  >
+                    <Question
+                      question="Do you recommend this product to others?"
+                      answers={["Yes", "No"]}
+                      selectedAnswer="Yes"
                     />
-                  </Pressable>
-                ))}
-              </View>
 
-              <TextInput
-                placeholder="Write your review here... (Optional)"
-                value={newReview}
-                onChangeText={setNewReview}
-                className="h-auto w-full border border-gray-300 p-2 mb-4 rounded-lg"
-                style={{ fontFamily: "Poppins", fontSize: 14 }}
-                multiline={true}
-              />
+                    <Question
+                      question="Are you satisfied with the quality of the product?"
+                      answers={["Yes", "No"]}
+                    />
 
-              <Text
-                style={{
-                  fontFamily: "Poppins",
-                  fontSize: 16,
-                  fontWeight: "bold",
-                }}
-                className="mt-4"
-              >
-                Tell Us more (Optional)
-              </Text>
+                    <Question
+                      question="Do you like other products from this shop?"
+                      answers={["Yes", "No"]}
+                      selectedAnswer="No"
+                    />
+                  </ScrollView>
+                </View>
 
-              <View className="flex flex-row w-full mt-4">
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ paddingHorizontal: 0 }}
-                >
-                  <Question
-                    question="Do you recommend this product to others ?"
-                    answers={["Yes", "No"]}
-                    selectedAnswer="Yes"
-                  />
-
-                  <Question
-                    question="Are you satisfied with the quality of the product ?"
-                    answers={["Yes", "No"]}
-                  />
-
-                  <Question
-                    question="Do you like other products from this shop ?"
-                    answers={["Yes", "No"]}
-                    selectedAnswer="No"
-                  />
-                </ScrollView>
-              </View>
-
-              <View className="mt-8 w-full">
-                <Button
-                  style={{ width: "100%", marginTop: 12 }}
-                  textStyle={{ color: "white", fontSize: 14 }}
-                  gradientColors={["#E99D23", "#F5640A"]}
-                  onPress={handleReviewSubmit}
-                >
-                  Submit Review
-                </Button>
-              </View>
-            </BottomSheetView>
+                <View className="mt-8 w-full">
+                  <Button
+                    style={{ width: "100%", marginTop: 12 }}
+                    textStyle={{ color: "white", fontSize: 14 }}
+                    gradientColors={["#E99D23", "#F5640A"]}
+                    onPress={handleReviewSubmit}
+                  >
+                    Submit Review
+                  </Button>
+                </View>
+              </BottomSheetView>
+            </TouchableWithoutFeedback>
           </BottomSheetModal>
         </ThemedView>
       </BottomSheetModalProvider>
