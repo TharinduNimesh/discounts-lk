@@ -4,6 +4,7 @@ import {
   Image,
   Keyboard,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -187,34 +188,10 @@ export default function InfoScreen({}) {
                   />
                 ))}
               </ThemedView>
-
-              <ThemedView className="flex flex-row mt-14">
-                <Button
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderWidth: 1,
-                    borderColor: "#F5640A33",
-                  }}
-                  onPress={() => console.log("Click")}
-                  gradientColors={["#EB874026", "#EB874026"]}
-                >
-                  <FontAwesome6 name="location-dot" size={24} color="orange" />
-                </Button>
-                <ThemedView className="flex-1 pl-3 bg-[#FFF6EF]">
-                  <Button
-                    textStyle={{ color: "white", fontSize: 14 }}
-                    gradientColors={["#E99D23", "#F5640A"]}
-                    onPress={() => console.log("Click")}
-                  >
-                    Claim This Offer
-                  </Button>
-                </ThemedView>
-              </ThemedView>
             </ThemedView>
 
             {/* Reviews Section */}
-            <ThemedView className="">
+            <ThemedView className="pb-20 bg-secondary">
               <ThemedView className="flex-row justify-between p-4">
                 <ThemedText type="subtitle">Reviews</ThemedText>
                 <Pressable
@@ -259,6 +236,31 @@ export default function InfoScreen({}) {
               ))}
             </ThemedView>
           </ParallaxScrollView>
+
+          {/* Floating Buuttons here */}
+          <View className="absolute bottom-0 flex-row p-4">
+            <Button
+              style={{
+                width: 56,
+                height: 56,
+                borderWidth: 1,
+                borderColor: "#fcd0b5",
+              }}
+              onPress={() => console.log("Click")}
+              gradientColors={["#fdebdd", "#fdebdd"]}
+            >
+              <FontAwesome6 name="location-dot" size={24} color="orange" />
+            </Button>
+            <View className="flex-1 pl-3">
+              <Button
+                textStyle={{ color: "white", fontSize: 14 }}
+                gradientColors={["#E99D23", "#F5640A"]}
+                onPress={() => console.log("Click")}
+              >
+                Claim This Offer
+              </Button>
+            </View>
+          </View>
 
           {/* BottomSheetModal for writing a review */}
           <BottomSheetModal ref={bottomSheetModalRef} snapPoints={["78%"]}>
