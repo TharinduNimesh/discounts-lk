@@ -5,9 +5,89 @@ import { ThemedText } from "@/components/ThemedText";
 import Input from "@/components/ButtonsAndInputs/UInput";
 import Button from "@/components/ButtonsAndInputs/UButton";
 import Divider from "@/components/ButtonsAndInputs/UDivider";
+import { useSupabase } from "@/hooks/useSupabase";
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/useToast";
+import { signUpValidation } from "@/validations";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function SignUp() {
   const router = useRouter();
+  const supabase = useSupabase();
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { user, session } = await useAuth();
+      if (user.data.user === null && session.data.session === null) {
+        console.log("User is not signed in");
+        return;
+      }
+
+      console.log("User is already signed in");
+      console.log(user.data.user);
+    })();
+  }, []);
+
+  // Form Value
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function createUser() {
+    setLoading(true);
+    if (!(await handleErrors())) {
+      setLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      toast.show({
+        title: "An Error Occurred",
+        description: error.message,
+        type: "danger",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (data.user?.id) {
+      await supabase
+        .from("profile")
+        .update({
+          name,
+        })
+        .eq("id", data.user.id);
+    }
+
+    toast.show({
+      title: "Creating Account",
+      description: "Please wait while we create your account",
+      type: "success",
+    });
+    setLoading(false);
+    router.push("/auth/sign-in");
+  }
+
+  async function handleErrors(): Promise<boolean> {
+    const errors = await signUpValidation({
+      name,
+      email,
+      password,
+    });
+    if (errors.length > 0) {
+      toast.show({
+        title: "An Error Occurred",
+        description: errors[0],
+        type: "danger",
+      });
+      return false;
+    }
+    return true;
+  }
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-primary">
@@ -35,6 +115,7 @@ export default function SignUp() {
               placeholder="John Smith"
               keyboardType="default"
               label="Your Name"
+              onChangeText={setName}
             />
           </ThemedView>
           <ThemedView className="mb-5">
@@ -42,6 +123,7 @@ export default function SignUp() {
               placeholder="johnsmith@example.com"
               keyboardType="email-address"
               label="Email Address"
+              onChangeText={setEmail}
             />
           </ThemedView>
           <ThemedView className="mb-4">
@@ -50,12 +132,14 @@ export default function SignUp() {
               keyboardType="default"
               secureTextEntry={true} // To make it a password field
               label="Password"
+              onChangeText={setPassword}
             />
           </ThemedView>
           <Button
             textStyle={{ color: "white", fontSize: 14 }}
             gradientColors={["#E99D23", "#F5640A"]}
-            onPress={() => console.log("Create Your Account")}
+            onPress={createUser}
+            isLoading={loading}
           >
             Create Your Account
           </Button>

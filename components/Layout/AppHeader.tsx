@@ -2,11 +2,68 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "../ThemedView";
-import { ThemedText } from "../ThemedText";
 import HeadEllipse from "../Ellipse";
+import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { SUPABASE_STORAGE_URL } from "@/constants/Supabase";
+import { useSupabase } from "@/hooks/useSupabase";
+
+interface Profile {
+  created_at: string;
+  email: string;
+  id: string;
+  name: string | null;
+}
 
 export default function AppHeaderLayout() {
   const router = useRouter();
+  const supabase = useSupabase();
+  const [user, setUser] = useState<Profile | null>(null);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { user: userResponse, session } = await useAuth();
+      if (userResponse.data.user === null && session.data.session === null) {
+        console.log("User is not signed in");
+        return;
+      }
+
+      if (userResponse.data.user === null) {
+        return;
+      }
+
+      const { data } = await supabase
+        .from("profile")
+        .select("*")
+        .eq("id", userResponse.data.user.id)
+        .single();
+      if (data === null) {
+        return;
+      }
+      setUser(data);
+      setIsAuth(true);
+    })();
+  }, []);
+
+  function callUser(name?: string | null): string {
+    if (name === null || name === undefined) {
+      return "User";
+    }
+    return name.split(" ")[0];
+  }
+
+  function getGreetings(): string {
+    const date = new Date();
+    const hours = date.getHours();
+    if (hours < 12) {
+      return "Good Morning";
+    }
+    if (hours < 18) {
+      return "Good Afternoon";
+    }
+    return "Good Evening";
+  }
 
   return (
     <ThemedView
@@ -26,16 +83,18 @@ export default function AppHeaderLayout() {
           onPress={() => router.push("/profile")}
         >
           <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/1.jpg" }}
+            source={{
+              uri: `${SUPABASE_STORAGE_URL}/profile-images/default-user-profile.png`,
+            }}
             className="w-14 h-14 p-2 rounded-full"
           />
         </TouchableOpacity>
         <ThemedView className="ml-3">
           <Text style={styles.greating} className="text-sm font-bold -mb-4">
-            Good Morning
+            {getGreetings()}
           </Text>
           <Text style={styles.hello}>
-            Hello Tharindu
+            Hello {!isAuth ? "User" : callUser(user?.name)}
           </Text>
         </ThemedView>
       </ThemedView>
@@ -56,10 +115,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     marginBottom: -2,
-    fontFamily: "Poppins"
+    fontFamily: "Poppins",
   },
   hello: {
     fontSize: 17,
-    fontFamily: "Poppins"
-  }
+    fontFamily: "Poppins",
+  },
 });

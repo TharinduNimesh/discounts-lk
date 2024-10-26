@@ -5,9 +5,56 @@ import { ThemedText } from "@/components/ThemedText";
 import Input from "@/components/ButtonsAndInputs/UInput";
 import Button from "@/components/ButtonsAndInputs/UButton";
 import Divider from "@/components/ButtonsAndInputs/UDivider";
+import { useState } from "react";
+import { signInValidation } from "@/validations";
+import { useToast } from "@/hooks/useToast";
+import { useSupabase } from "@/hooks/useSupabase";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const toast = useToast();
+  const supabase = useSupabase();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // form values
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function signIn() {
+    if (!handleErrors()) return;
+    setIsLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast.show({
+        title: "An Error Occurred",
+        description: error.message,
+        type: "danger",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(false);
+    router.push("/(tabs)");
+  }
+
+  function handleErrors() {
+    const errors = signInValidation({ email, password });
+    if (errors.length) {
+      toast.show({
+        title: "An Error Occurred",
+        description: errors[0],
+        type: "danger",
+      });
+      return false;
+    }
+    return true;
+  }
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="bg-primary">
@@ -35,6 +82,7 @@ export default function HomeScreen() {
               placeholder="johnsmith@example.com"
               keyboardType="email-address"
               label="Email Address"
+              onChangeText={setEmail}
             />
           </ThemedView>
           <ThemedView className="mb-4">
@@ -43,12 +91,14 @@ export default function HomeScreen() {
               keyboardType="default"
               secureTextEntry={true} // To make it a password field
               label="Password"
+              onChangeText={setPassword}
             />
           </ThemedView>
           <Button
             textStyle={{ color: "white", fontSize: 14 }}
             gradientColors={["#E99D23", "#F5640A"]}
-            onPress={() => console.log("Sign In")}
+            onPress={signIn}
+            isLoading={isLoading}
           >
             Sign In
           </Button>

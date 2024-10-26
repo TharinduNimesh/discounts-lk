@@ -4,8 +4,9 @@ import { ThemedView } from "../ThemedView";
 export type InputProps = {
   label?: string;
   placeholder?: string;
-  keyboardType?: string;
+  keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
   placeholderTextColor?: string;
+  onChangeText?: (text: string) => void;
   [key: string]: any;
 };
 
@@ -14,6 +15,7 @@ export default function Input({
   placeholder = "Enter text",
   keyboardType = "default",
   placeholderTextColor = "#00000033",
+  onChangeText,
   ...rest
 }: InputProps) {
   return (
@@ -24,6 +26,7 @@ export default function Input({
         placeholder={placeholder}
         keyboardType={keyboardType}
         placeholderTextColor={placeholderTextColor}
+        onChangeText={onChangeText}
         {...rest}
       />
     </ThemedView>
