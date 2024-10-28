@@ -6,29 +6,15 @@ import Input from "@/components/ButtonsAndInputs/UInput";
 import Button from "@/components/ButtonsAndInputs/UButton";
 import Divider from "@/components/ButtonsAndInputs/UDivider";
 import { useSupabase } from "@/hooks/useSupabase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/useToast";
 import { signUpValidation } from "@/validations";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function SignUp() {
   const router = useRouter();
   const supabase = useSupabase();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const { user, session } = await useAuth();
-      if (user.data.user === null && session.data.session === null) {
-        console.log("User is not signed in");
-        return;
-      }
-
-      console.log("User is already signed in");
-      console.log(user.data.user);
-    })();
-  }, []);
 
   // Form Value
   const [name, setName] = useState("");

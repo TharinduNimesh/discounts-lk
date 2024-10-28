@@ -75,7 +75,6 @@ export default function Profile() {
       }
 
       if (error) {
-        console.log(error);
         toast.show({
           title: "You Got an Error",
           description: error.message,

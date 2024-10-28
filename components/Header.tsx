@@ -5,17 +5,8 @@ import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "./ThemedView";
 import HeadEllipse from "./Ellipse";
 import { useEffect, useState } from "react";
-import { getAuthUser } from "@/hooks/getAuthUser";
 import { SUPABASE_STORAGE_URL } from "@/constants/Supabase";
 import { useAuthStore } from "@/stores/auth.store";
-
-interface Profile {
-  created_at: string;
-  email: string;
-  id: string;
-  name: string | null;
-  profile_image: string | null;
-}
 
 export default function HeaderComponent() {
   const router = useRouter();
@@ -23,13 +14,8 @@ export default function HeaderComponent() {
   const [profilePic, setProfilePic] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("User changed");
     setProfilePic(getProfilePic());
   }, [user]);
-
-  useEffect(() => {
-    console.log(profilePic);
-  }, [profilePic]);
 
   function callUser(name?: string | null): string {
     if (name === null || name === undefined) {
