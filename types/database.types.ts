@@ -40,18 +40,21 @@ export type Database = {
           email: string
           id: string
           name: string | null
+          profile_image: string | null
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
           name?: string | null
+          profile_image?: string | null
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
           name?: string | null
+          profile_image?: string | null
         }
         Relationships: [
           {

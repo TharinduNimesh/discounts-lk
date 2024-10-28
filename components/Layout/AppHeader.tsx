@@ -3,54 +3,45 @@ import { useRouter } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { ThemedView } from "../ThemedView";
 import HeadEllipse from "../Ellipse";
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
 import { SUPABASE_STORAGE_URL } from "@/constants/Supabase";
-import { useSupabase } from "@/hooks/useSupabase";
-
-interface Profile {
-  created_at: string;
-  email: string;
-  id: string;
-  name: string | null;
-}
+import { useAuthStore } from "@/stores/auth.store";
+import { useEffect, useState } from "react";
 
 export default function AppHeaderLayout() {
   const router = useRouter();
-  const supabase = useSupabase();
-  const [user, setUser] = useState<Profile | null>(null);
-  const [isAuth, setIsAuth] = useState(false);
+
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const user = useAuthStore((state) => state.user);
+  const [profilePic, setProfilePic] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const { user: userResponse, session } = await useAuth();
-      if (userResponse.data.user === null && session.data.session === null) {
-        console.log("User is not signed in");
-        return;
-      }
-
-      if (userResponse.data.user === null) {
-        return;
-      }
-
-      const { data } = await supabase
-        .from("profile")
-        .select("*")
-        .eq("id", userResponse.data.user.id)
-        .single();
-      if (data === null) {
-        return;
-      }
-      setUser(data);
-      setIsAuth(true);
-    })();
-  }, []);
+    setProfilePic(getProfilePic());
+  }, [user]);
 
   function callUser(name?: string | null): string {
     if (name === null || name === undefined) {
       return "User";
     }
     return name.split(" ")[0];
+  }
+
+  function getProfilePic() {
+    if (user === null) {
+      return `${SUPABASE_STORAGE_URL}/profile/default-user-profile.png`;
+    }
+
+    if (user.profile_image === null) {
+      return `${SUPABASE_STORAGE_URL}/profile/default-user-profile.png`;
+    }
+
+    if (
+      user.profile_image_local_uri !== null &&
+      user.profile_image_local_uri !== undefined
+    ) {
+      return user.profile_image_local_uri;
+    }
+
+    return user.profile_image;
   }
 
   function getGreetings(): string {
@@ -80,11 +71,13 @@ export default function AppHeaderLayout() {
         {/* TouchableOpacity to make the image a button */}
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => router.push("/profile")}
+          onPress={() => router.push(isLoggedIn ? "/profile" : "/auth/sign-in")}
         >
           <Image
             source={{
-              uri: `${SUPABASE_STORAGE_URL}/profile-images/default-user-profile.png`,
+              uri:
+                profilePic ||
+                `${SUPABASE_STORAGE_URL}/profile/default-user-profile.png`,
             }}
             className="w-14 h-14 p-2 rounded-full"
           />
@@ -94,7 +87,7 @@ export default function AppHeaderLayout() {
             {getGreetings()}
           </Text>
           <Text style={styles.hello}>
-            Hello {!isAuth ? "User" : callUser(user?.name)}
+            Hello {!isLoggedIn ? "User" : callUser(user?.name)}
           </Text>
         </ThemedView>
       </ThemedView>

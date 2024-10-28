@@ -8,13 +8,15 @@ import Divider from "@/components/ButtonsAndInputs/UDivider";
 import { useState } from "react";
 import { signInValidation } from "@/validations";
 import { useToast } from "@/hooks/useToast";
-import { useSupabase } from "@/hooks/useSupabase";
+import { useAuthStore } from "@/stores/auth.store";
 
 export default function HomeScreen() {
   const router = useRouter();
   const toast = useToast();
-  const supabase = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
+
+  const signin = useAuthStore((state) => state.signIn);
+  const setLocalUri = useAuthStore((state) => state.setLocalUri);
 
   // form values
   const [email, setEmail] = useState("");
@@ -24,10 +26,8 @@ export default function HomeScreen() {
     if (!handleErrors()) return;
     setIsLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await signin(email, password);
+    await setLocalUri();
 
     if (error) {
       toast.show({
